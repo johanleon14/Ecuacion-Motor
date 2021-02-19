@@ -1,0 +1,19 @@
+
+
+volatile int contador = 0; //variable entera que se almacena en la RAM de la micro
+
+void setup(){
+	serial.begin(57600);
+	attachInterrupt(0,interrupcion0,RISING); //interrupcion 0 (pin2)
+}						 // LOW, CHANGE, RISING, FALLING
+
+void loop(){
+	delay(999);			//retardo de casi 1 segundo
+	serial.print(contador*30);	//como son dos interrupciones por vuelta (contador* (60/2)) ) 2 por el numero de aspas :v
+	serial.println(" RPM");
+	contador = 0;
+}
+
+void interrupcion0(){	//Funcion que se ejecuta durante cada interrupcion
+	contador++;	//aumentamos el contador de rpm
+}
